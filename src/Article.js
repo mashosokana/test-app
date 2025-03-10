@@ -12,14 +12,7 @@ const Article = ({ title, createdAt, categories, content }) => {
         </div>
       </div>
       <p className="article-title">APIで取得した {title}</p>
-      <p className="content">
-        {content.split('<br/>').map((line, index) => (
-          <React.Fragment key={index}>
-            {line}
-            <br />
-          </React.Fragment>
-        ))}
-      </p>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 };
