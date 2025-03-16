@@ -1,10 +1,31 @@
-import React from "react";
-import { posts } from "../../data/posts";
+import React,{ useState, useEffect } from "react";
 import classes from "./Home.module.css";
 import { Link } from "react-router-dom";
 
 
 export const Home = () => {
+  const [posts, setPosts] = useState([]);
+
+    useEffect (() => {
+      const fetcher = async () => {
+        try {
+          const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts");
+          const data = await res.json();
+          console.log("取得したデータ:", data);
+          setPosts(data.posts);
+        } catch (error) {
+          console.error("記事一覧の取得に失敗しました", error);
+        }
+      };
+
+      fetcher();
+    }, []);
+
+    if (posts.length === 0) {
+      return <div>読み込み中...</div>
+    }
+  
+
   return (
     <div>
       <ul className={classes.container}>
