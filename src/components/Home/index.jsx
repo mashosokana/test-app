@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 
 export const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([null]);
+  const [loading, setLoading] = useState(true);
 
     useEffect (() => {
       const fetcher = async () => {
@@ -16,13 +17,14 @@ export const Home = () => {
         } catch (error) {
           console.error("記事一覧の取得に失敗しました", error);
         }
+        setLoading(false);
       };
 
       fetcher();
     }, []);
 
-    if (posts.length === 0) {
-      return <div>読み込み中...</div>
+    if (loading) {
+      return <div>読み込み中...</div>;
     }
   
 
