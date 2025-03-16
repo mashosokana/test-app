@@ -1,13 +1,33 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classes from './Page.module.css';
-import { posts } from '../../data/posts';
 
 export const DetailsPage = () => {
-  // URLからidを取得
+  
   const { id } = useParams();
-  // postsからidが一致する記事を初期値に設定
-  const post = posts.find(p => p.id === parseInt(id, 10));
+  console.log(id);
+  const [post,setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetcher = async () => {
+      try {
+        const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`);
+        const data = await res.json();
+        console.log("取得した記事データ:", data);
+        setPost(data.post);
+      } catch (error) {
+        console.error("記事詳細の取得に失敗しました:", error);
+      }
+      setLoading(false);
+    };
+
+    fetcher();
+  }, [id]);
+
+  if (loading) {
+    return <div>読み込み中...</div>
+  }
 
   if (!post) {
     return <div>記事が見つかりません</div>;
