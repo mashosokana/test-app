@@ -1,18 +1,14 @@
 import React from "react";
+import style from "./Textarea.module.css"
+
 const Textarea = ({ id, value, onChange, disabled }) => {
   return (
     <textarea
-    id={id}
-    value={value}
-    onChange={onChange}
-    disabled={disabled}
-    style={{
-      width: "100%",
-      height: "150px", 
-      padding: "0.5rem",
-      fontSize: "1rem",
-      boxSizing: "border-box"
-    }}
+      id={id}
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+      className={style.textarea}
     />
   );
 };

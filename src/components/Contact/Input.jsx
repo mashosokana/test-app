@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./Input.module.css"
 
 const Input = ({ id, type = "text", value, onChange, disabled }) => {
   return (
@@ -8,12 +9,7 @@ const Input = ({ id, type = "text", value, onChange, disabled }) => {
       value={value}
       onChange={onChange}
       disabled={disabled}
-      style={{
-        width: "100%", 
-        padding: "0.5rem",
-        fontSize: "1rem",
-        boxSizing: "border-box" 
-      }}
+     className={style.input}
     />
   );
 };
